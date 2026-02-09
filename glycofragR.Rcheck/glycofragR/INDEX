@@ -1,0 +1,32 @@
+glycan_analysis_clean_df
+                        Get clean theoretical fragments from
+                        GlycanAnalysis
+glycan_analysis_export
+                        Export GlycanAnalysis to Excel
+glycan_analysis_new     GlycanAnalysis wrapper
+glycan_analysis_structures
+                        Get GlycanAnalysis structures
+glycan_analysis_summary
+                        Get summary from GlycanAnalysis
+glycan_analysis_theoretical_df
+                        Get theoretical fragments from GlycanAnalysis
+glycan_analysis_visualize
+                        Visualize structure from GlycanAnalysis
+glycan_generate_fragments
+                        Generate glycan fragments
+glycan_mass             Calculate glycan mass
+glycan_new              Create a new Glycan object
+glycan_predict_structures
+                        Predict glycan structures
+glycan_visualize        Visualize glycan structure
+glycofragR              glycofragR
+glycopeptide_fragments
+                        Generate glycopeptide fragments
+glycopeptide_new        Create a new Glycopeptide object
+glycopeptide_summary    Get glycopeptide summary
+list_supported_modifications
+                        List supported modifications
+peptide_fragments       Generate peptide fragments
+peptide_new             Create a new Peptide object
+set_glycofrag_conda_env
+                        Set glycofrag conda environment

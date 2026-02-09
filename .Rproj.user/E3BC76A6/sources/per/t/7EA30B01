@@ -1,0 +1,28 @@
+{
+    "id": "7EA30B01",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1770621573451.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "id": "529af1caa0e04e88bbc6b76bcd33793a",
+        "name": "summary_df",
+        "title": "summary_df",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 2591019660272,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1770621573451,
+    "read_only": false,
+    "read_only_alternatives": []
+}

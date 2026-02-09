@@ -1,0 +1,46 @@
+---
+title: "glycofragR Introduction"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{glycofragR Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+## Setup
+
+This package uses reticulate to access the Python package `glycofrag` from a conda environment.
+
+```r
+library(glycofragR)
+set_glycofrag_conda_env("glycofrag")
+```
+
+## Glycan Example
+
+```r
+glycan <- glycan_new("4501", "N")
+structures <- glycan_predict_structures(glycan)
+frags <- glycan_generate_fragments(glycan, structures[[1]])
+```
+
+## Glycopeptide Example
+
+```r
+gp <- glycopeptide_new(
+  peptide_sequence = "LCPDCPLLAPLNDSR",
+  glycan_code = "4501",
+  glycosylation_site = 12,
+  glycan_type = "N"
+)
+frags_gp <- glycopeptide_fragments(gp)
+```
+
+## Notes
+
+- All peptide and glycosylation positions are 1-based.
+- The conda environment must be created before use.

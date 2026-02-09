@@ -1,0 +1,116 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "glycofrag"
+version = "0.1.0"
+description = "A Python package for glycan and glycopeptide fragmentation analysis"
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "Oluwatosin Daramola"}
+]
+maintainers = [
+    {name = "Oluwatosin Daramola"}
+]
+keywords = [
+    "glycan",
+    "glycopeptide",
+    "mass spectrometry",
+    "fragmentation",
+    "proteomics",
+    "glycomics",
+    "bioinformatics"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Chemistry",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.20.0",
+    "pandas>=1.3.0",
+    "networkx>=2.6.0",
+    "matplotlib>=3.3.0",
+]
+
+[project.optional-dependencies]
+excel = [
+    "openpyxl>=3.0.0",
+]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=3.0.0",
+    "black>=22.0.0",
+    "mypy>=0.950",
+    "isort>=5.10.0",
+]
+docs = [
+    "sphinx>=4.0.0",
+    "sphinx-rtd-theme>=1.0.0",
+    "myst-parser>=0.18.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/odaramola92/glycofrag"
+Documentation = "https://github.com/odaramola92/glycofrag#readme"
+Repository = "https://github.com/odaramola92/glycofrag"
+Issues = "https://github.com/odaramola92/glycofrag/issues"
+"Publication" = "https://doi.org/10.1021/acs.analchem.5c06005"
+
+[tool.setuptools]
+packages = [
+    "glycofrag",
+    "glycofrag.composition",
+    "glycofrag.core",
+    "glycofrag.fragmentation",
+    "glycofrag.glycan",
+    "glycofrag.glycopeptide",
+    "glycofrag.io",
+    "glycofrag.peptide",
+    "glycofrag.structure",
+    "glycofrag.utils",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "glycofrag/tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+    | \.mypy_cache
+    | \.pytest_cache
+    | \.venv
+    | build
+    | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+skip_gitignore = true
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true

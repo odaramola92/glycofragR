@@ -1,0 +1,707 @@
+\nonstopmode{}
+\documentclass[a4paper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\makeatletter\@ifl@t@r\fmtversion{2018/04/01}{}{\usepackage[utf8]{inputenc}}\makeatother
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `glycofragR'}}
+\par\bigskip{\large \today}
+\end{center}
+\ifthenelse{\boolean{Rd@use@hyper}}{\hypersetup{pdftitle = {glycofragR: Glycan and Glycopeptide Fragmentation Analysis via Glycofrag}}}{}
+\ifthenelse{\boolean{Rd@use@hyper}}{\hypersetup{pdfauthor = {Oluwatosin Daramola}}}{}
+\begin{description}
+\raggedright{}
+\item[Type]\AsIs{Package}
+\item[Title]\AsIs{Glycan and Glycopeptide Fragmentation Analysis via Glycofrag}
+\item[Version]\AsIs{0.1.0}
+\item[Author]\AsIs{Oluwatosin Daramola [aut, cre]}
+\item[Maintainer]\AsIs{Oluwatosin Daramola }\email{oluwatosindaramola@gmail.com}\AsIs{}
+\item[Description]\AsIs{R wrapper for the glycofrag Python package. Provides glycan and
+glycopeptide structure prediction, fragmentation, visualization, and mass
+calculations through reticulate.}
+\item[License]\AsIs{MIT + file LICENSE}
+\item[Encoding]\AsIs{UTF-8}
+\item[LazyData]\AsIs{true}
+\item[Imports]\AsIs{reticulate}
+\item[Suggests]\AsIs{testthat (>= 3.0.0), knitr, rmarkdown}
+\item[VignetteBuilder]\AsIs{knitr}
+\item[Config/testthat/edition]\AsIs{3}
+\item[Roxygen]\AsIs{list(markdown = TRUE)}
+\item[RoxygenNote]\AsIs{7.3.2}
+\end{description}
+\Rdcontents{Contents}
+\HeaderA{glycan\_analysis\_clean\_df}{Get clean theoretical fragments from GlycanAnalysis}{glycan.Rul.analysis.Rul.clean.Rul.df}
+%
+\begin{Description}
+Get clean theoretical fragments from GlycanAnalysis
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycan_analysis_clean_df(analysis)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{analysis}] GlycanAnalysis object
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Data frame of unique/deduplicated fragments
+\end{Value}
+\HeaderA{glycan\_analysis\_export}{Export GlycanAnalysis to Excel}{glycan.Rul.analysis.Rul.export}
+%
+\begin{Description}
+Export GlycanAnalysis to Excel
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycan_analysis_export(analysis, output_file, include_prediction = TRUE)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{analysis}] GlycanAnalysis object
+
+\item[\code{output\_file}] Path to output Excel file
+
+\item[\code{include\_prediction}] Include structure prediction sheet (default: TRUE)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+NULL invisibly
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+set_glycofrag_conda_env("glycofrag")
+analysis <- glycan_analysis_new("4501", "N")
+glycan_analysis_export(analysis, "output.xlsx")
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{glycan\_analysis\_new}{GlycanAnalysis wrapper}{glycan.Rul.analysis.Rul.new}
+%
+\begin{Description}
+High-level interface for glycan analysis combining structure prediction,
+fragment generation, and Excel export.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycan_analysis_new(
+  glycan_code,
+  glycan_type = "N",
+  modification_type = "permethylated_reduced",
+  max_structures = 100,
+  isomer_sensitive = FALSE,
+  fragment_types = c("BY"),
+  charges = c(1, 2, 3),
+  visualize_structure = NULL,
+  preferred_core = NULL
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{glycan\_code}] 4-5 digit composition code
+
+\item[\code{glycan\_type}] Type of glycan: "N" or "O" (default: "N")
+
+\item[\code{modification\_type}] Reducing end modification (default: "permethylated\_reduced")
+
+\item[\code{max\_structures}] Maximum number of structures to predict (default: 100)
+
+\item[\code{isomer\_sensitive}] Treat mirror images as distinct (default: FALSE)
+
+\item[\code{fragment\_types}] Vector of fragment types (default: c("BY"))
+
+\item[\code{charges}] Vector of charge states (default: c(1, 2, 3))
+
+\item[\code{visualize\_structure}] Which structures to visualize: "all", "best", integer, or NULL
+
+\item[\code{preferred\_core}] For O-glycans, select specific core (1-8) or NULL
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+GlycanAnalysis object
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+set_glycofrag_conda_env("glycofrag")
+analysis <- glycan_analysis_new(
+  glycan_code = "4501",
+  glycan_type = "N",
+  modification_type = "permethylated_reduced"
+)
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{glycan\_analysis\_structures}{Get GlycanAnalysis structures}{glycan.Rul.analysis.Rul.structures}
+%
+\begin{Description}
+Get GlycanAnalysis structures
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycan_analysis_structures(analysis)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{analysis}] GlycanAnalysis object
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+List of predicted structures
+\end{Value}
+\HeaderA{glycan\_analysis\_summary}{Get summary from GlycanAnalysis}{glycan.Rul.analysis.Rul.summary}
+%
+\begin{Description}
+Get summary from GlycanAnalysis
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycan_analysis_summary(analysis)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{analysis}] GlycanAnalysis object
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Data frame with analysis summary
+\end{Value}
+\HeaderA{glycan\_analysis\_theoretical\_df}{Get theoretical fragments from GlycanAnalysis}{glycan.Rul.analysis.Rul.theoretical.Rul.df}
+%
+\begin{Description}
+Get theoretical fragments from GlycanAnalysis
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycan_analysis_theoretical_df(analysis)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{analysis}] GlycanAnalysis object
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Data frame of theoretical fragments
+\end{Value}
+\HeaderA{glycan\_analysis\_visualize}{Visualize structure from GlycanAnalysis}{glycan.Rul.analysis.Rul.visualize}
+%
+\begin{Description}
+Visualize structure from GlycanAnalysis
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycan_analysis_visualize(
+  analysis,
+  structure_number,
+  output_path = NULL,
+  show = FALSE,
+  show_node_numbers = TRUE,
+  ...
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{analysis}] GlycanAnalysis object
+
+\item[\code{structure\_number}] Which structure to visualize (1-based)
+
+\item[\code{output\_path}] Path to save image
+
+\item[\code{show}] Display the plot (default: FALSE)
+
+\item[\code{show\_node\_numbers}] Show node numbers (default: TRUE)
+
+\item[\code{...}] Additional visualization parameters
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+NULL invisibly
+\end{Value}
+\HeaderA{glycan\_generate\_fragments}{Generate glycan fragments}{glycan.Rul.generate.Rul.fragments}
+%
+\begin{Description}
+Generate theoretical fragment ions for a glycan structure.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycan_generate_fragments(
+  glycan,
+  structure,
+  modification_type = 0,
+  permethylated = FALSE,
+  fragment_types = c("BY", "CZ")
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{glycan}] Glycan object
+
+\item[\code{structure}] Structure graph from glycan\_predict\_structures()
+
+\item[\code{modification\_type}] Reducing end modification type (0-6, default: 0)
+
+\item[\code{permethylated}] Logical; if TRUE, use permethylated masses (default: FALSE)
+
+\item[\code{fragment\_types}] Vector of fragment types (default: c("BY", "CZ"))
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+List containing fragments and metadata
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+set_glycofrag_conda_env("glycofrag")
+glycan <- glycan_new("4501", "N")
+structures <- glycan_predict_structures(glycan)
+frags <- glycan_generate_fragments(glycan, structures[[1]])
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{glycan\_mass}{Calculate glycan mass}{glycan.Rul.mass}
+%
+\begin{Description}
+Calculate mass from a glycan composition code.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycan_mass(glycan_code)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{glycan\_code}] 4-5 digit composition code
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Numeric mass in Daltons
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+set_glycofrag_conda_env("glycofrag")
+mass <- glycan_mass("4501")
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{glycan\_new}{Create a new Glycan object}{glycan.Rul.new}
+%
+\begin{Description}
+Create a new Glycan object
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycan_new(glycan_code, glycan_type = "N")
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{glycan\_code}] 4-5 digit composition code (e.g., "4501" for HexNAc-4, Hex-5, Fuc-0, NeuAc-1)
+
+\item[\code{glycan\_type}] Type of glycan: "N" for N-glycan or "O" for O-glycan (default: "N")
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Python Glycan object
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+set_glycofrag_conda_env("glycofrag")
+glycan <- glycan_new("4501", "N")
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{glycan\_predict\_structures}{Predict glycan structures}{glycan.Rul.predict.Rul.structures}
+%
+\begin{Description}
+Predict possible structures from a glycan composition.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycan_predict_structures(glycan)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{glycan}] Glycan object created by glycan\_new()
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+List of predicted structure graphs
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+set_glycofrag_conda_env("glycofrag")
+glycan <- glycan_new("4501", "N")
+structures <- glycan_predict_structures(glycan)
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{glycan\_visualize}{Visualize glycan structure}{glycan.Rul.visualize}
+%
+\begin{Description}
+Create a SNFG-compliant visualization of a glycan structure.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycan_visualize(
+  structure,
+  title = NULL,
+  output_path = NULL,
+  show = FALSE,
+  ...
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{structure}] Structure graph from glycan\_predict\_structures()
+
+\item[\code{title}] Optional title for the plot
+
+\item[\code{output\_path}] Optional file path to save the image
+
+\item[\code{show}] Logical; if TRUE, display the plot (default: FALSE)
+
+\item[\code{...}] Additional visualization parameters (vertical\_gap, horizontal\_spacing, node\_size, figsize)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+NULL invisibly
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+set_glycofrag_conda_env("glycofrag")
+glycan <- glycan_new("4501", "N")
+structures <- glycan_predict_structures(glycan)
+glycan_visualize(structures[[1]], output_path = "glycan.png")
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{glycofragR}{glycofragR}{glycofragR}
+\aliasA{glycofragR-package}{glycofragR}{glycofragR.Rdash.package}
+%
+\begin{Description}
+R wrapper for the glycofrag Python package.
+\end{Description}
+%
+\begin{Author}
+\strong{Maintainer}: Oluwatosin Daramola \email{oluwatosindaramola@gmail.com}
+
+\end{Author}
+\HeaderA{glycopeptide\_fragments}{Generate glycopeptide fragments}{glycopeptide.Rul.fragments}
+%
+\begin{Description}
+Generate all theoretical fragment ions for a glycopeptide.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycopeptide_fragments(glycopeptide)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{glycopeptide}] Glycopeptide object created by glycopeptide\_new()
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+List of fragment ions (peptide, glycan, and glycopeptide fragments)
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+set_glycofrag_conda_env("glycofrag")
+gp <- glycopeptide_new("LCPDCPLLAPLNDSR", "4501", 12, "N")
+frags <- glycopeptide_fragments(gp)
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{glycopeptide\_new}{Create a new Glycopeptide object}{glycopeptide.Rul.new}
+%
+\begin{Description}
+Create a new Glycopeptide object
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycopeptide_new(
+  peptide_sequence,
+  glycan_code,
+  glycosylation_site,
+  glycan_type = "N",
+  modifications = NULL,
+  mod_string = NULL
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{peptide\_sequence}] Amino acid sequence
+
+\item[\code{glycan\_code}] 4-5 digit glycan composition code
+
+\item[\code{glycosylation\_site}] Position of glycosylation (1-based indexing)
+
+\item[\code{glycan\_type}] Type of glycan: "N" or "O" (default: "N")
+
+\item[\code{modifications}] Optional named list of peptide modifications with positions (1-based)
+
+\item[\code{mod\_string}] Optional modification string (e.g., "M:Ox; C:CAM")
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Python Glycopeptide object
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+set_glycofrag_conda_env("glycofrag")
+gp <- glycopeptide_new(
+  peptide_sequence = "LCPDCPLLAPLNDSR",
+  glycan_code = "4501",
+  glycosylation_site = 12,
+  glycan_type = "N"
+)
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{glycopeptide\_summary}{Get glycopeptide summary}{glycopeptide.Rul.summary}
+%
+\begin{Description}
+Extract key information from a glycopeptide object.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+glycopeptide_summary(glycopeptide)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{glycopeptide}] Glycopeptide object
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+List with peptide\_sequence, glycan\_code, glycosylation\_site, glycan\_type
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+set_glycofrag_conda_env("glycofrag")
+gp <- glycopeptide_new("LCPDCPLLAPLNDSR", "4501", 12, "N")
+summary <- glycopeptide_summary(gp)
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{list\_supported\_modifications}{List supported modifications}{list.Rul.supported.Rul.modifications}
+%
+\begin{Description}
+Get a list of all supported peptide modifications.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+list_supported_modifications(verbose = TRUE)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{verbose}] Logical; if TRUE, print detailed information (default: TRUE)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+List of supported modifications with masses and targets
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+set_glycofrag_conda_env("glycofrag")
+mods <- list_supported_modifications()
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{peptide\_fragments}{Generate peptide fragments}{peptide.Rul.fragments}
+%
+\begin{Description}
+Generate theoretical peptide fragment ions (b, y, c, z).
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+peptide_fragments(peptide, charge_states = c(1, 2))
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{peptide}] Peptide object created by peptide\_new()
+
+\item[\code{charge\_states}] Vector of charge states to generate (default: c(1, 2))
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+List of fragment ions
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+set_glycofrag_conda_env("glycofrag")
+peptide <- peptide_new("PEPTIDE")
+frags <- peptide_fragments(peptide, charge_states = c(1, 2, 3))
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{peptide\_new}{Create a new Peptide object}{peptide.Rul.new}
+%
+\begin{Description}
+Create a new Peptide object
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+peptide_new(sequence, modifications = NULL, mod_string = NULL)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{sequence}] Amino acid sequence (single-letter code)
+
+\item[\code{modifications}] Optional named list of modifications with positions (1-based)
+
+\item[\code{mod\_string}] Optional modification string (e.g., "M:Ox; S3:Phos")
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Python Peptide object
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+set_glycofrag_conda_env("glycofrag")
+peptide <- peptide_new("PEPTIDE")
+peptide_mod <- peptide_new("LCPDCPLLAPLNDSR", mod_string = "C:CAM")
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{set\_glycofrag\_conda\_env}{Set glycofrag conda environment}{set.Rul.glycofrag.Rul.conda.Rul.env}
+%
+\begin{Description}
+Configure reticulate to use a specific conda environment containing glycofrag.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+set_glycofrag_conda_env(env_name = "glycofrag")
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{env\_name}] Name of the conda environment (default: "glycofrag")
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+TRUE invisibly
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+set_glycofrag_conda_env("glycofrag")
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\printindex{}
+\end{document}

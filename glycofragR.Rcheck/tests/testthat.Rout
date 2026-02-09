@@ -1,0 +1,39 @@
+
+R version 4.5.1 (2025-06-13 ucrt) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+Warning message:
+package 'testthat' was built under R version 4.5.2 
+> library(glycofragR)
+> 
+> test_check("glycofragR")
+[ FAIL 0 | WARN 0 | SKIP 16 | PASS 0 ]
+
+══ Skipped tests (16) ══════════════════════════════════════════════════════════
+• Python not available (16): 'test-glycan.R:2:3', 'test-glycan.R:10:3',
+  'test-glycan.R:20:3', 'test-glycan.R:30:3', 'test-glycan_analysis.R:2:3',
+  'test-glycan_analysis.R:10:3', 'test-glycan_analysis.R:20:3',
+  'test-glycan_analysis.R:29:3', 'test-glycopeptide.R:2:3',
+  'test-glycopeptide.R:10:3', 'test-glycopeptide.R:20:3', 'test-peptide.R:2:3',
+  'test-peptide.R:10:3', 'test-peptide.R:20:3', 'test-utils.R:2:3',
+  'test-utils.R:8:3'
+
+[ FAIL 0 | WARN 0 | SKIP 16 | PASS 0 ]
+> 
+> proc.time()
+   user  system elapsed 
+   2.57    0.39    6.79 

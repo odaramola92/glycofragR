@@ -1,0 +1,4 @@
+^CRAN_PUBLISHING_STEPS\.md$
+^\.gitignore$
+^\.Rproj\.user$
+^.*\.Rproj$
