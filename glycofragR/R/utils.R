@@ -106,19 +106,16 @@ glycofrag_install <- function(
   python_version = "3.11",
   force_reinstall = FALSE
 ) {
-  # Step 1: Ensure Miniconda/Condatools are available
-  if (!reticulate::conda_binary_exists()) {
+  # Step 1: Ensure Miniconda is available
+  envs <- tryCatch(reticulate::conda_list(), error = function(e) NULL)
+  if (is.null(envs)) {
     message("Installing Miniconda...")
     reticulate::install_miniconda()
+    envs <- reticulate::conda_list()
   }
   
-  # Step 2: Get list of existing envs
-  existing_envs <- tryCatch(
-    reticulate::conda_list()$name,
-    error = function(e) c()
-  )
-  
-  env_exists <- envname %in% existing_envs
+  # Step 2: Check if environment already exists
+  env_exists <- envname %in% envs$name
   
   # Step 3: Create environment if needed
   if (!env_exists) {
