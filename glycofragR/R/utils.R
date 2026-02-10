@@ -133,18 +133,28 @@ glycofrag_install <- function(
   message("Installing core dependencies...")
   reticulate::conda_install(
     envname,
-    packages = c("numpy", "pandas", "matplotlib", "scipy", "scikit-learn"),
+    packages = c("pip", "numpy", "pandas", "matplotlib", "scipy", "scikit-learn"),
     channel = "conda-forge"
   )
   
-  # Step 5: Install glycofrag via pip
-  message("Installing glycofrag...")
-  reticulate::py_install(
-    packages = "glycofrag",
-    envname = envname,
-    pip = TRUE,
-    ignore_installed = force_reinstall
+  # Step 5: Install glycofrag via pip from TestPyPI
+  message("Installing glycofrag from TestPyPI...")
+  result <- system2(
+    reticulate::conda_binary(),
+    args = c(
+      "run", "-n", envname, "pip", "install",
+      "--index-url", "https://test.pypi.org/simple/",
+      "--extra-index-url", "https://pypi.org/simple/",
+      if (force_reinstall) "--force-reinstall" else NULL,
+      "glycofrag"
+    ),
+    stdout = TRUE,
+    stderr = TRUE
   )
+  
+  if (!is.null(attr(result, "status")) && attr(result, "status") != 0) {
+    stop("Failed to install glycofrag from TestPyPI", call. = FALSE)
+  }
   
   # Step 6: Verify installation
   message("Verifying installation...")
